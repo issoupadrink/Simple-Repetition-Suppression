@@ -3,11 +3,11 @@ require 'test/unit'
 
 class TestCompression < Test::Unit::TestCase
     def test_duplicate_in_middle_of_string
-        assert_equal('a/b3c', SimpleRepetitionSuppression.compress('abbbc'))
+        assert_equal('a/b3cc', SimpleRepetitionSuppression.compress('abbbcc'))
     end
 
     def test_duplicate_at_end_of_string
-        assert_equal('ab/c2', SimpleRepetitionSuppression.compress('abcc'))
+        assert_equal('ab/c3', SimpleRepetitionSuppression.compress('abccc'))
     end
 
     def test_duplicate_at_start_of_string
@@ -23,17 +23,17 @@ class TestCompression < Test::Unit::TestCase
     end
 
     def test_with_special_character
-        assert_equal('a//2', SimpleRepetitionSuppression.compress('a//'))
+        assert_equal('a//3', SimpleRepetitionSuppression.compress('a///'))
     end
 end
 
 class TestDecompression < Test::Unit::TestCase
-    def test_simple
-        assert_equal('abbbc', SimpleRepetitionSuppression.decompress('a/b3c'))
+    def test_duplicate_in_middle_of_string
+        assert_equal('abbbcc', SimpleRepetitionSuppression.decompress('a/b3cc'))
     end
 
     def test_duplicate_at_end_of_string
-        assert_equal('abcc', SimpleRepetitionSuppression.decompress('ab/c2'))
+        assert_equal('abccc', SimpleRepetitionSuppression.decompress('ab/c3'))
     end
 
     def test_duplicate_at_start_of_string
@@ -49,6 +49,25 @@ class TestDecompression < Test::Unit::TestCase
     end
 
     def test_with_special_character
-        assert_equal('a//', SimpleRepetitionSuppression.decompress('a//2'))
+        assert_equal('a///', SimpleRepetitionSuppression.decompress('a//3'))
+    end
+end
+
+class TestAgainstCovidGenome < Test::Unit::TestCase
+    
+    def test_lossless_decompression
+        covid_genome = File.read('covid_2019_genome.txt')
+        compressed_string = SimpleRepetitionSuppression.compress(covid_genome)
+
+        assert_equal(covid_genome, SimpleRepetitionSuppression.decompress(compressed_string))
+    end
+
+    def test_compression_reduces_size
+        covid_genome = File.read('covid_2019_genome.txt')
+        compressed_string = SimpleRepetitionSuppression.compress(covid_genome)
+
+        puts compressed_string.length
+        puts covid_genome.length
+        assert_true(compressed_string.length < covid_genome.length)
     end
 end

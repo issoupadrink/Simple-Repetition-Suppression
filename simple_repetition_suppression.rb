@@ -17,8 +17,13 @@ class SimpleRepetitionSuppression
             if c == previous_char
                 instances += 1
 
-            elsif c != previous_char && instances > 1
+            elsif c != previous_char && instances > 2
                 result.concat('/' + previous_char + instances.to_s)
+                instances = 1
+                previous_char = c
+
+            elsif c != previous_char && instances == 2
+                result.concat(previous_char + previous_char)
                 instances = 1
                 previous_char = c
 
