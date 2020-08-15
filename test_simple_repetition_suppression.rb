@@ -29,6 +29,26 @@ end
 
 class TestDecompression < Test::Unit::TestCase
     def test_simple
-        assert_equal(['a', 'b', 'c'], SimpleRepetitionSuppression.decompress('abc'))
+        assert_equal('abbbc', SimpleRepetitionSuppression.decompress('a/b3c'))
+    end
+
+    def test_duplicate_at_end_of_string
+        assert_equal('abcc', SimpleRepetitionSuppression.decompress('ab/c2'))
+    end
+
+    def test_duplicate_at_start_of_string
+        assert_equal('aaabc', SimpleRepetitionSuppression.decompress('/a3bc'))
+    end
+
+    def test_empty_string
+        assert_equal('', SimpleRepetitionSuppression.decompress(''))
+    end
+
+    def test_single_character
+        assert_equal('a', SimpleRepetitionSuppression.decompress('a'))
+    end
+
+    def test_with_special_character
+        assert_equal('a//', SimpleRepetitionSuppression.decompress('a//2'))
     end
 end
