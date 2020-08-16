@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/github/issoupadrink/Simple-Repetition-Suppression.svg?branch=master)](https://travis-ci.org/github/issoupadrink/Simple-Repetition-Suppression)
+[![Build Status](https://travis-ci.org/issoupadrink/Simple-Repetition-Suppression.svg?branch=master)](https://travis-ci.org/github/issoupadrink/Simple-Repetition-Suppression)
 [![codecov](https://codecov.io/gh/issoupadrink/Simple-Repetition-Suppression/branch/master/graph/badge.svg)](https://codecov.io/gh/issoupadrink/Simple-Repetition-Suppression)
 
 # Simple Repetition Suppression
