@@ -36,7 +36,7 @@ class SimpleRepetitionSuppression
         return result
     end
 
-    def self.decompress(text)
+    def self.uncompress(text)
         input_stream = text.split('')
         result = ''
 
